@@ -1,0 +1,31 @@
+{% extends 'userinfo/base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<h1>User Profile</h1>
+<div>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Date of Birth:</strong> {{ user.dob|date:"Y-m-d" }}</p>
+    <p><strong>City:</strong> {{ user.city }}</p>
+</div>
+
+<button><a href="{% url 'add_education' %}">Add Education Details</a></button>
+
+
+{% if user.educational_info.all %}
+    <h2>Educational Details:</h2>
+    <ul>
+        {% for education in user.educational_info.all %}
+            <li>
+                {{ education.degree }} from {{ education.university }},
+                Graduated {{ education.graduation_year }},
+                <strong>Mobile:</strong> {{ education.mobile_number }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No educational details added.</p>
+{% endif %}
+{% endblock %}
